@@ -4,4 +4,6 @@ An object detection system based on ultrasonic/sonar waves to detect nearby obje
 
 Project inspired by Hacksmith Industires. https://youtu.be/YQgWBzY1hR0
 
-Porject PCB and Schematic on CIRCUIT MAKER as well https://365.altium.com/files/DB2D6313-70A9-482E-9DF1-E4D2B7785A2F
+Project PCB and Schematic on CIRCUIT MAKER as well https://365.altium.com/files/DB2D6313-70A9-482E-9DF1-E4D2B7785A2F
+
+A YouTube video will be availabe shortly.
