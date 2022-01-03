@@ -1,0 +1,25 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: SpideySensePCB.CMPcbDoc   2022-01-01  1:12:35 AM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : SpideySensePCB-RoundHoles.TXT
+ASCII SlotHoles File : SpideySensePCB-SlotHoles.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      24mil (0.61mm)                                            Round             2         PTH        0.47inch (11.94mm)
+T2      30mil (0.762mm)                                           Round             6         PTH        4.09inch (103.86mm)
+T3      31mil (0.787mm)                                           Round             12        PTH        9.82inch (249.52mm)
+T4      31mil (0.787mm)                                           Slot              2         PTH        0.70inch (17.89mm)
+T5      32mil (0.813mm)                                           Round             3         PTH        0.16inch (4.06mm)
+T6      33mil (0.838mm)                                           Round             2         PTH        0.15inch (3.81mm)
+T7      35mil (0.889mm)                                           Round             18        PTH        5.79inch (147.02mm)
+T8      36mil (0.914mm)                                           Round             7         PTH        4.66inch (118.48mm)
+T9      39mil (0.991mm)                                           Round             6         PTH        1.62inch (41.03mm)
+T10     40mil (1.016mm)                                           Round             17        PTH        8.42inch (213.79mm)
+T11     45mil (1.143mm)                                           Round             30        PTH        4.90inch (124.46mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              105
+
+Total Processing Time (hh:mm:ss) : 00:00:00
