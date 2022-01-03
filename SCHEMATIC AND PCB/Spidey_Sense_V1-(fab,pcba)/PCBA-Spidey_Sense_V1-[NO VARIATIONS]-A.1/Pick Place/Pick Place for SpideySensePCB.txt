@@ -1,0 +1,45 @@
+Altium Designer Pick and Place Locations
+C:\Users\nisch\AppData\Local\TempReleases\Snapshot\2\Assembly\Pick Place\Pick Place for SpideySensePCB.txt
+
+========================================================================================================================
+File Design Information:
+
+Date:       31-12-21
+Time:       16:50
+Revision:   Not in VersionControl
+Variant:    No variations
+Units used: mil
+
+Designator Comment                           Layer    Footprint                  Center-X(mil) Center-Y(mil) Rotation Description                                                                                 
+J6         Sensor3                           TopLayer PCB-rn7un5c8cc0swpp1289c-1 1240.000      4855.000      0        "Conn Unshrouded Header HDR 4 POS 2.54mm Solder ST Thru-Hole"                               
+J5         Sensor2                           TopLayer PCB-rn7un5c8cc0swpp1289c-1 1740.000      4855.000      0        "Conn Unshrouded Header HDR 4 POS 2.54mm Solder ST Thru-Hole"                               
+J4         Sensor1                           TopLayer PCB-rn7un5c8cc0swpp1289c-1 3000.000      4860.000      0        "Conn Unshrouded Header HDR 4 POS 2.54mm Solder ST Thru-Hole"                               
+D6         1N4007                            TopLayer PCB-dx7u28bqzltw1ua6uge7-1 4915.000      3850.000      270      "1N4007GP Series 1000 V 1 A Through Hole Glass Passivated Rectifier - DO-41"                
+D5         1N4007                            TopLayer PCB-dx7u28bqzltw1ua6uge7-1 4255.000      3850.000      270      "1N4007GP Series 1000 V 1 A Through Hole Glass Passivated Rectifier - DO-41"                
+D4         1N4007                            TopLayer PCB-dx7u28bqzltw1ua6uge7-1 3585.000      3860.000      270      "1N4007GP Series 1000 V 1 A Through Hole Glass Passivated Rectifier - DO-41"                
+D3         1N4007                            TopLayer PCB-dx7u28bqzltw1ua6uge7-1 1210.000      4415.000      90       "1N4007GP Series 1000 V 1 A Through Hole Glass Passivated Rectifier - DO-41"                
+D2         1N4007                            TopLayer PCB-dx7u28bqzltw1ua6uge7-1 1460.000      4415.000      90       "1N4007GP Series 1000 V 1 A Through Hole Glass Passivated Rectifier - DO-41"                
+D1         1N4007                            TopLayer PCB-dx7u28bqzltw1ua6uge7-1 1710.000      4415.000      90       "1N4007GP Series 1000 V 1 A Through Hole Glass Passivated Rectifier - DO-41"                
+VR1        "Texas Instruments LM7805CT"      TopLayer LM7805CT_TO-220            4335.000      4605.000      270      "LM78XX Series 5 V Fixed Output 1 A 3-Terminal LDO Voltage Regulator - TO-220"              
+U1         "Espressif Systems ESP32-DEVKIT1" TopLayer PCB-isg9v9ll4hq1tfh79a57-1 2405.000      3550.000      180      "ESP32 WiFi MCU Module Development Board"                                                   
+SW2        "ON/OFF Switch"                   TopLayer PCB-jzft20c5ocof3hhi9mdb-1 3845.000      4860.000      180      "Switch; Slide; Mini; SPDT; ON-ON; Non-Shorting(BBM); 100mA; 12VDC; ThruHole R/A; PC Pin"   
+SW1        "Push Button"                     TopLayer PCB-5d84476pu01t2ppvwiy4-1 1255.000      3893.425      90       "Switch Tactile N.O. SPST Round Button PC Pins 0.02A 15VDC 1.6N Thru-Hole Radial T/R"       
+R7         1k                                TopLayer PCB-phnddipmxkkbb99s2frw-1 4390.000      4320.000      180      "Res Carbon Film 1K Ohm 5% 1/2W -1200ppm/°C to 0ppm/°C Conformal AXL Thru-Hole Ammo Pack"   
+R6         2k                                TopLayer PCB-7z12dsp71idtajkuechg-1 4495.000      3282.244      90       "Res Metal Film 2K Ohm 1% 3/5W ±50ppm/°C Conformal AXL Thru-Hole Ammo Pack"                 
+R5         2k                                TopLayer PCB-7z12dsp71idtajkuechg-1 3835.000      3282.244      90       "Res Metal Film 2K Ohm 1% 3/5W ±50ppm/°C Conformal AXL Thru-Hole Ammo Pack"                 
+R4         2k                                TopLayer PCB-7z12dsp71idtajkuechg-1 3160.000      3282.244      90       "Res Metal Film 2K Ohm 1% 3/5W ±50ppm/°C Conformal AXL Thru-Hole Ammo Pack"                 
+R3         10k                               TopLayer PCB-kj1xbn8dkxpf8c7tfw0r-1 1430.000      3510.000      180      "Through Hole Carbon Film Resistor, CFR Series, 10 kohm, 330 mW, - 5%, 250 V, Axial Leaded" 
+R2         2.2k                              TopLayer PCB-9uowgn732pyy7bja9oan-1 1705.000      3822.500      90       "Res Carbon Film 22K Ohm 5% 1/4W -1200ppm/°C to 0ppm/°C Conformal AXL Thru-Hole Ammo Pack"  
+R1         2.2k                              TopLayer PCB-9uowgn732pyy7bja9oan-1 1515.000      3832.500      270      "Res Carbon Film 22K Ohm 5% 1/4W -1200ppm/°C to 0ppm/°C Conformal AXL Thru-Hole Ammo Pack"  
+Q3         BD139                             TopLayer PCB-vxsgokorrilsux2zr6a3-1 4775.000      3430.000      180      "Trans GP BJT NPN 80V 1.5A 1250mW 3-Pin(3+Tab) SOT-32 Tube"                                 
+Q2         BD139                             TopLayer PCB-vxsgokorrilsux2zr6a3-1 4124.095      3425.000      180      "Trans GP BJT NPN 80V 1.5A 1250mW 3-Pin(3+Tab) SOT-32 Tube"                                 
+Q1         BD139                             TopLayer PCB-vxsgokorrilsux2zr6a3-1 3449.095      3425.000      180      "Trans GP BJT NPN 80V 1.5A 1250mW 3-Pin(3+Tab) SOT-32 Tube"                                 
+J3         "3V Vibration Motor"              TopLayer PCB-642946-1               4635.000      3775.787      90       "Mini Vibration Motor 2.0mm"                                                                
+J2         "3V Vibration Motor"              TopLayer PCB-642946-1               3985.000      3775.787      90       "Mini Vibration Motor 2.0mm"                                                                
+J1         "3V Vibration Motor"              TopLayer PCB-642946-1               3315.000      3775.787      90       "Mini Vibration Motor 2.0mm"                                                                
+D7         "RED LED PTH"                     TopLayer PCB-8fnm1gqdpse16arx63h0-1 4785.000      4290.000      0        "LED; Red; 30mcd; 0.126In.Dia.; T-1; 150mA; 2V; 635nm; 60deg; Diffused; 85 to 85degC"       
+C4         1000uF/50V                        TopLayer PCB-syws3wtmmitcvr7uxv5d-1 3338.425      4465.000      180      1000uF/50V                                                                                  
+C3         100pF                             TopLayer PCB-kmattby4o7v8fub4ufnq-1 3900.000      4425.000      90       "Cap Ceramic Disk Rdl Ammo Pk"                                                              
+C2         0.1uF                             TopLayer PCB-sa3w44oy0wih14a9m5c9-1 4045.000      4430.000      270      "Cap Ceramic 0.1uF 50V X7R 10% Radial 5.08mm 125°C Bulk"                                    
+C1         0.1uF                             TopLayer PCB-sa3w44oy0wih14a9m5c9-1 3735.000      4430.000      90       "Cap Ceramic 0.1uF 50V X7R 10% Radial 5.08mm 125°C Bulk"                                    
+BT1        "Keystone 2239"                   TopLayer PCB-4nnq7f80hz6nyftd1am7-1 3435.000      4895.000      180      "Fitting, Cable; 0.240 to 0.685 in.; DieCast Zinc; Zinc Plated; 1.563 in."                  
