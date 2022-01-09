@@ -1,6 +1,16 @@
 //Set this to 1 if you want to see debug
 #define DEBUG 0
 
+//Wifi Settings
+#include <WiFi.h>
+const char* ssid = "Spidey_V1";
+const char* password = "BeGreater";
+// Set web server port number to 80
+WiFiServer server(80);
+// Variable to store the HTTP request
+String header;
+
+
 //Sensors
 #define NUM_Sensors 3
 const uint8_t trigPin[NUM_Sensors] = {5, 4, 2};
@@ -21,8 +31,8 @@ volatile uint8_t PWM_Ch[NUM_Motors];
 #define detection_threshold 100.0
 #define NUM_Region 4
 #define intensity 1.0
-#define motor_intensity 120
-const uint8_t motor_rate[NUM_Region] = {20, 15, 10, 5};
+#define motor_intensity 100
+const uint8_t motor_rate[NUM_Region] = {50, 30, 20, 10};
 
 //Filter coefficients
 #define refresh_freq 100.0
@@ -45,7 +55,8 @@ portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 #define prescalar 80
 #define timer_rate_ms 20
 #define timer_value 80000000/prescalar * timer_rate_ms/1000
-#define initial_pulse_rate 20
+#define initial_pulse_rate 80
+volatile uint8_t master_motor_control[NUM_Motors];
 volatile uint8_t motor_time_counter[NUM_Motors];
 volatile uint8_t motor_time_threshold[NUM_Motors];
 volatile uint8_t motor_running[NUM_Motors];
@@ -62,7 +73,7 @@ void IRAM_ATTR onTimer()
   {
     motor_time_counter[i]++;
     //Check if the main loop wants to enable the ith motor.
-    if(enable_motor[i] == 1)
+    if(enable_motor[i] == 1 && master_motor_control[i] == 1)
     {
       //If its is time to switch on/off the motor(s)
       if(motor_time_counter[i] > (motor_time_threshold[i] - 1))
@@ -97,10 +108,18 @@ void IRAM_ATTR onTimer()
 void setup() {
   
   uint8_t i = 0;
-  
+
   //--------------Starts the serial communication--------------------
   Serial.begin(115200); 
 
+  //--------------Set Up Wifi----------------------------------------
+  Serial.print("Setting AP (Access Point)...");
+  WiFi.softAP(ssid, password);
+  IPAddress IP = WiFi.softAPIP();
+  Serial.print("\nAP IP address: ");
+  Serial.println(IP);
+  server.begin();
+  
   //--------------Ultrasonic Sensor Initialization-------------------
   //Setting up all the triger Pins for the ultrasonic sensor
   for(i = 0; i < NUM_Sensors; i++)
@@ -174,6 +193,8 @@ void loop() {
   initialize_int(motor_time_threshold, NUM_Motors, initial_pulse_rate);
   Serial.print("\nInitalizing motor_pulse_regions\n");
   initialize_regions(detection_region, NUM_Region);
+  Serial.print("\nInitalizing master_motor_control\n");
+  initialize_int(master_motor_control, NUM_Motors, 1);
   //Wait for user to press button
   Serial.print("\nPress Button to continue...\n");
   if(DEBUG == 1)
@@ -181,9 +202,18 @@ void loop() {
     while(digitalRead(push_button) == LOW);
     while(digitalRead(push_button) == HIGH); 
   }
+  IPAddress IP = WiFi.softAPIP();
+  Serial.print("\nAP IP address: ");
+  Serial.println(IP);
+  Serial.print("\nAP IP address: ");
+  Serial.println(IP);
+  while(digitalRead(push_button) == LOW);
+  while(digitalRead(push_button) == HIGH);
   //-----------------Main looping loop----------------------------
   while(1)
   {
+    //Call web server stuff
+    WIFIstuff();
     //------------------READ SENSOR-------------------------------
     //Take sensor readings and compare if the we need to turn on the motor.
     for(i = 0; i < NUM_Sensors; i++)
@@ -228,8 +258,8 @@ void loop() {
         sprintf(output, "Sensor[%d]: %.4f\t", i, y[i]);
         Serial.print(output);
       }
-      sprintf(output, "%.4f \t", y[i]);
-      Serial.print(output);
+      //sprintf(output, "%.4f \t", y[i]);
+      //Serial.print(output);
     }
     Serial.print("\n");
    
@@ -237,26 +267,29 @@ void loop() {
     //Distance becomes smaller and smaller.
     for(i = 0; i < NUM_Sensors; i++)
     {
-      if(y[i] <= detection_threshold)
+      if(master_motor_control[i] == 1)    //Check if our motor is supposed to be running
       {
-        //Now we set the pulsing rate based on the distance
-        for(int j = 0; j < NUM_Region; j++)
+        if(y[i] <= detection_threshold)
         {
-          if(y[i] >= detection_region[j])
+          //Now we set the pulsing rate based on the distance
+          for(int j = 0; j < NUM_Region; j++)
           {
-            motor_time_threshold[i] = motor_rate[j];
-            sprintf(output, "\n Motor[%i] Detction_Rate = %i, region = %f\n", i, motor_time_threshold[i], detection_region[j]);
-            Serial.print(output);
-            break;
+           if(y[i] >= detection_region[j])
+            {
+              motor_time_threshold[i] = motor_rate[j];
+              //sprintf(output, "\n Motor[%i] Detction_Rate = %i, region = %f\n", i, motor_time_threshold[i], detection_region[j]);
+              //Serial.print(output);
+              break;
+            }
           }
+          //Start the motor
+          enable_motor[i] = 1;
         }
-        //Start the motor
-        enable_motor[i] = 1;
-      }
-      else
-      {
-        //Stop the motor
-        enable_motor[i] = 0;
+        else
+        {
+          //Stop the motor
+         enable_motor[i] = 0;
+        }
       }
     }
     Serial.print("\n"); 
@@ -337,4 +370,105 @@ void initialize_regions(float *region, int divisions)
     }
   }  
   Serial.print("\n-----Initialized------\n");
+}
+
+void WIFIstuff()
+{
+  WiFiClient client = server.available();   //Listen for incoming clients
+  if(client)
+  {
+    Serial.print("\nNew Client.");
+    String currentLine = "";
+    while(client.available())
+    {
+    if(client.available())
+    {
+      char c = client.read();
+      Serial.print(c);
+      header += c;
+      if(c == '\n')
+      {
+        if(currentLine.length() == 0)
+        {
+          client.println("HTTP/1.1 200 OK");
+          client.println("Content-type:text/html");
+          client.println("Connection: close");
+          client.println();
+          // turns the GPIOs on and off
+          if (header.indexOf("GET /26/on") >= 0) 
+          {
+            Serial.println("MOTOR 1 OFF");
+            master_motor_control[0] = 0;
+          } 
+          else if (header.indexOf("GET /26/off") >= 0) 
+          {
+            Serial.println("MOTOR 1 ON");
+            master_motor_control[0] = 1;
+          } 
+          else if (header.indexOf("GET /27/on") >= 0) 
+          {
+            Serial.println("MOTOR 2 OFF");
+            master_motor_control[1] = 0;
+          } 
+          else if (header.indexOf("GET /27/off") >= 0) 
+          {
+            Serial.println("MOTOR 2 ON");
+            master_motor_control[1] = 1;
+          }
+          //Display webpage
+          client.println("<!DOCTYPE html><html>");
+          client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+          client.println("<link rel=\"icon\" href=\"data:,\">");
+          // CSS to style the on/off buttons 
+          // Feel free to change the background-color and font-size attributes to fit your preferences
+          client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
+          client.println(".button { background-color: #4CAF50; border: none; color: white; padding: 16px 40px;");
+          client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
+          client.println(".button2 {background-color: #555555;}</style></head>");
+          // Web Page Heading
+          client.println("<body><h1>Spidey_Sense_v1</h1>");
+          if(master_motor_control[0] == 1){client.println("<p>Motor1 - State ON</p>");}
+          else{client.println("<p>Motor 2 - State OFF</p>");}
+          // If the output26State is off, it displays the ON button       
+          if (master_motor_control[0] == 1) 
+          {
+            client.println("<p><a href=\"/26/on\"><button class=\"button\">ON</button></a></p>");
+          } 
+          else 
+          {
+            client.println("<p><a href=\"/26/off\"><button class=\"button button2\">OFF</button></a></p>");
+          }
+          if(master_motor_control[1] == 1){client.println("<p>Motor 2 - State ON</p>");}
+          else{client.println("<p>Motor 2 - State OFF</p>");}
+          if (master_motor_control[1] == 1) 
+          {
+            client.println("<p><a href=\"/27/on\"><button class=\"button\">ON</button></a></p>");
+          } 
+          else 
+          {
+            client.println("<p><a href=\"/27/off\"><button class=\"button button2\">OFF</button></a></p>");
+          } 
+          client.println("</body></html>");  
+          // The HTTP response ends with another blank line
+          client.println();
+          break;
+        }
+        else
+        {
+          currentLine = "";
+        }
+      }
+      else if (c != '\r')
+      {
+        currentLine += c;
+      }
+    }
+   }
+  }
+  //clear header variable
+  header = "";
+  //close the connection
+  client.stop();
+  Serial.println("Client Disconnected");
+  Serial.println("");
 }
