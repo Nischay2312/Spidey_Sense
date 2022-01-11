@@ -395,26 +395,36 @@ void WIFIstuff()
           client.println("Connection: close");
           client.println();
           // turns the GPIOs on and off
-          if (header.indexOf("GET /26/on") >= 0) 
+          if (header.indexOf("GET /M1/on") >= 0) 
           {
             Serial.println("MOTOR 1 OFF");
             master_motor_control[0] = 0;
           } 
-          else if (header.indexOf("GET /26/off") >= 0) 
+          else if (header.indexOf("GET /M1/off") >= 0) 
           {
             Serial.println("MOTOR 1 ON");
             master_motor_control[0] = 1;
           } 
-          else if (header.indexOf("GET /27/on") >= 0) 
+          else if (header.indexOf("GET /M2/on") >= 0) 
           {
             Serial.println("MOTOR 2 OFF");
             master_motor_control[1] = 0;
           } 
-          else if (header.indexOf("GET /27/off") >= 0) 
+          else if (header.indexOf("GET /M2/off") >= 0) 
           {
             Serial.println("MOTOR 2 ON");
             master_motor_control[1] = 1;
           }
+          else if (header.indexOf("GET /M3/off") >= 0) 
+          {
+            Serial.println("MOTOR 3 ON");
+            master_motor_control[2] = 1;
+          }
+          else if (header.indexOf("GET /M3/on") >= 0) 
+          {
+            Serial.println("MOTOR 3 OFF");
+            master_motor_control[2] = 0;
+          } 
           //Display webpage
           client.println("<!DOCTYPE html><html>");
           client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
@@ -432,21 +442,31 @@ void WIFIstuff()
           // If the output26State is off, it displays the ON button       
           if (master_motor_control[0] == 1) 
           {
-            client.println("<p><a href=\"/26/on\"><button class=\"button\">ON</button></a></p>");
+            client.println("<p><a href=\"/M1/on\"><button class=\"button\">ON</button></a></p>");
           } 
           else 
           {
-            client.println("<p><a href=\"/26/off\"><button class=\"button button2\">OFF</button></a></p>");
+            client.println("<p><a href=\"/M2/off\"><button class=\"button button2\">OFF</button></a></p>");
           }
           if(master_motor_control[1] == 1){client.println("<p>Motor 2 - State ON</p>");}
           else{client.println("<p>Motor 2 - State OFF</p>");}
           if (master_motor_control[1] == 1) 
           {
-            client.println("<p><a href=\"/27/on\"><button class=\"button\">ON</button></a></p>");
+            client.println("<p><a href=\"/M2/on\"><button class=\"button\">ON</button></a></p>");
           } 
           else 
           {
-            client.println("<p><a href=\"/27/off\"><button class=\"button button2\">OFF</button></a></p>");
+            client.println("<p><a href=\"/M2/off\"><button class=\"button button2\">OFF</button></a></p>");
+          } 
+          if(master_motor_control[2] == 1){client.println("<p>Motor 3 - State ON</p>");}
+          else{client.println("<p>Motor 3 - State OFF</p>");}
+          if (master_motor_control[2] == 1) 
+          {
+            client.println("<p><a href=\"/M3/on\"><button class=\"button\">ON</button></a></p>");
+          } 
+          else 
+          {
+            client.println("<p><a href=\"/M3/off\"><button class=\"button button2\">OFF</button></a></p>");
           } 
           client.println("</body></html>");  
           // The HTTP response ends with another blank line
