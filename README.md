@@ -6,6 +6,9 @@ An object detection system based on ultrasonic/sonar waves to detect nearby obje
   -Added wifi support. (not completed fully. but works somewhat.)  
   -WiFi IP: 192.168.4.1  
   -Currently control 2 motors, turn them ON/OFF  
+  
+**Update Jan 11, 2022**  
+  -Added control for third motor. 
 
 *Project inspired by [Hacksmith Industires](https://youtu.be/YQgWBzY1hR0/).*
 
